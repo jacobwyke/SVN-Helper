@@ -1,9 +1,12 @@
-Snippets
-========
+#SVN Helper#
+=======================
 
-Hey! That's my snippets repository with nice little scripts will make your live easier.
+##TL/DR##
+Set of bash aliases to make working with SVN easier.
 
-And if they don't - you will get a full refund.
+##Installing##
 
-If you like my scripts, have a look at my Startup [Usersnap](http://usersnap.com). It will definitely make
-your web development live easier by getting accurate browser screenshot of your users.
+##Usage##
+
+##Thanks##
+Forked originally from https://github.com/grexi/snippets - Gregor Dorfbauer - gd@usersnap.com

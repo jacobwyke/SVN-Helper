@@ -1,0 +1,164 @@
+# SVN Helper
+#
+# Set of bash aliases to make using SVN easier.
+# Jacob Wyke - jacob@frozensheep.com
+#
+# Forked from https://github.com/grexi/snippets - Gregor Dorfbauer, gd@usersnap.com
+
+function getrepo {
+    REPO=`LANG=C svn info | grep "Repository Root"`
+    echo ${REPO:17}
+}
+
+function getrepobase {
+   if [ "`LANG=C svn info | grep -c Relative`" -gt 0 ]; 
+   then
+      parent=".."
+      grandparent=".."
+      if [ -d ".svn" ]; then
+          echo ""
+      else
+          while [ ! -d "$grandparent/.svn" ]; do
+              parent=$grandparent
+              grandparent="$parent/.."
+          done
+          echo $grandparent
+     fi
+   else
+      parent=""
+      grandparent="."
+      while [ -d "$grandparent/.svn" ]; do
+          parent=$grandparent
+          grandparent="$parent/.."
+      done
+      echo $parent
+   fi
+}
+
+function _svnbranch {
+    if [ $# != 2 ]; then
+        echo "Usage: $0 branchname \"commit message\""
+    else
+        REPO=$(getrepo)
+        svn copy $REPO/trunk $REPO/branches/$1 -m "$2"
+        svn switch $REPO/branches/$1 $(getrepobase)
+    fi
+}
+
+function _svnupdatebranch {
+    REPO=$(getrepo)
+    svn merge $REPO/trunk $(getrepobase)
+}
+
+function _svnrelease {
+    if [ $# != 1 ]; then
+        echo "Usage: $0 release_version"
+    else
+        REPO=$(getrepo)
+        svn copy $(getrepobase) $REPO/releases/$1 -m "$1 release"
+    fi
+}
+
+function _svndeletebranch {
+    if [ $# != 2 ]; then
+        echo "Usage: $0 branch_name \"commit message\""
+    else
+        REPO=$(getrepo)
+        svn delete $REPO/branches/$1 -m "$2"
+    fi
+}
+
+function _svndeleterelease {
+    if [ $# != 2 ]; then
+        echo "Usage: $0 release_name \"commit message\""
+    else
+        REPO=$(getrepo)
+        svn delete $REPO/releases/$1 -m "$2"
+    fi
+}
+
+function _svnswitch {
+    REPO=$(getrepo)
+    svn switch $REPO/$1 $(getrepobase)
+}
+
+function _svnswitchbranch {
+    if [ $# != 1 ]; then
+        echo "Usage: $0 branch_name"
+    else
+    	REPO=$(getrepo)
+   	 	svn switch $REPO/branches/$1 $(getrepobase)
+	fi
+}
+
+function _svnswitchrelease {
+    if [ $# != 1 ]; then
+        echo "Usage: $0 release_name"
+    else
+    	REPO=$(getrepo)
+   	 	svn switch $REPO/releases/$1 $(getrepobase)
+	fi
+}
+
+function _svnswitchtrunk {
+    REPO=$(getrepo)
+    svn switch $REPO/trunk $(getrepobase)
+}
+
+function _svnmerge {
+    if [ $# -lt 1 ]; then
+        echo "Usage $0 branchname [\"commit message\"]"
+        return
+    fi
+    REPO=$(getrepo)
+    if [ -z "$REPO" ]; then
+        echo "You are not inside a svn working copy."
+        return;
+    fi
+    SVNST=`svn st`    
+    if [ "$SVNST" != "" ]; then
+        echo "you have changes in your working copy."
+        svn st
+        return
+    fi
+    
+    svn switch $REPO/trunk $(getrepobase)
+    svn merge --reintegrate $REPO/branches/$1 $(getrepobase)
+    if [ $# == 2 ]; then
+        svn ci -m "$2" $(getrepobase)
+    else
+        svn ci $(getrepobase)
+    fi
+}
+
+function _svninfo {
+    svn info
+}
+
+alias svnbranch=_svnbranch
+alias svnupdatebranch=_svnupdatebranch
+alias svnrelease=_svnrelease
+alias svndeletebranch=_svndeletebranch
+alias svndeleterelease=_svndeleterelease
+alias svnswitch=_svnswitch
+alias svnswitchbranch=_svnswitchbranch
+alias svnswitchrelease=_svnswitchrelease
+alias svnswitchtrunk=_svnswitchtrunk
+alias svnmerge=_svnmerge
+alias svninfo=_svninfo
+
+function _svnhelp {
+       echo "SVN Helper Functions"
+	   echo "svnbranch - Create a new branch & switches to it."
+	   echo "svnupdatebranch - Updates a branch from the trunk."
+	   echo "svnrelease - Creates a release branch."
+	   echo "svndeletebranch - Deletes a branch."
+	   echo "svndeleterelease - Deletes a release."
+	   echo "svnswitch - Switches to another branch. Full branch path required."
+	   echo "svnswitchbranch - Switches to a specific branch."
+	   echo "svnswitchrelease - Switches to a specific release."
+	   echo "svnswitchtrunk - Switches to the trunk."
+	   echo "svnmerge - Merges a branch back into the trunk."
+	   echo "svninfo - SVN info."
+}
+alias svnhelp=_svnhelp
