@@ -11,7 +11,7 @@ Set of bash aliases to make working with SVN easier and faster.
 	
 - Restart your shell.
 
-There are example files in the /example/ folder.
+There are example files in the */example/* folder.
 
 ##Usage##
 
@@ -28,7 +28,7 @@ Create a new branch and switch to it.
 	svnbranch social-features "Creating a branch for the new social features"
 
 ###svnrelease###
-Creates a release branch. This is a branch within the /releases/ directory.
+Creates a release branch. This is a branch within the */releases/* directory.
 
 	svnrelease release_name
 	
@@ -63,14 +63,14 @@ Switches to another branch. Full branch path required.
 	svnswitch releases/2.0a
 	
 ###svnswitchbranch###
-Switches to a specific branch without adding the 'branches' full path.
+Switches to a specific branch without adding the *'branches'* full path.
 
 	svnswitchbranch branch_name
 	
 	svnswitchbranch social-features
 
 ###svnswitchrelease###
-Switches to a specific release without adding the 'releases' full path.
+Switches to a specific release without adding the *'releases'* full path.
 
 	svnswitchrelease release_name
 	
