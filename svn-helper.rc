@@ -45,11 +45,6 @@ function _svnbranch {
     fi
 }
 
-function _svnupdatebranch {
-    REPO=$(getrepo)
-    svn merge $REPO/trunk $(getrepobase)
-}
-
 function _svnrelease {
     if [ $# != 1 ]; then
         echo "Usage: $0 release_version"
@@ -57,6 +52,11 @@ function _svnrelease {
         REPO=$(getrepo)
         svn copy $(getrepobase) $REPO/releases/$1 -m "$1 release"
     fi
+}
+
+function _svnupdatebranch {
+    REPO=$(getrepo)
+    svn merge $REPO/trunk $(getrepobase)
 }
 
 function _svndeletebranch {
@@ -136,8 +136,8 @@ function _svninfo {
 }
 
 alias svnbranch=_svnbranch
-alias svnupdatebranch=_svnupdatebranch
 alias svnrelease=_svnrelease
+alias svnupdatebranch=_svnupdatebranch
 alias svndeletebranch=_svndeletebranch
 alias svndeleterelease=_svndeleterelease
 alias svnswitch=_svnswitch
@@ -150,8 +150,8 @@ alias svninfo=_svninfo
 function _svnhelp {
        echo "SVN Helper Functions"
 	   echo "svnbranch - Create a new branch & switches to it."
-	   echo "svnupdatebranch - Updates a branch from the trunk."
 	   echo "svnrelease - Creates a release branch."
+	   echo "svnupdatebranch - Updates a branch from the trunk."	   
 	   echo "svndeletebranch - Deletes a branch."
 	   echo "svndeleterelease - Deletes a release."
 	   echo "svnswitch - Switches to another branch. Full branch path required."

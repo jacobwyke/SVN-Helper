@@ -23,26 +23,73 @@ Display a list of available commands from SVN Helper.
 ###svnbranch###
 Create a new branch and switch to it.
 
-	svnbranch _branch_name_ _"Commit Message"_
+	svnbranch branch_name "Commit Message"
 	
-###svnupdatebranch###
+	svnbranch social-features "Creating a branch for the new social features"
 
 ###svnrelease###
+Creates a release branch. This is a branch within the /releases/ directory.
 
+	svnrelease release_name
+	
+	svnrelease 2.0a
+	
+###svnupdatebranch###
+Update a branch from the trunk.
+
+	svnupdatebranch
+	
 ###svndeletebranch###
+Deletes a branch.
 
+	svndeletebranch branch_name
+	
+	svndelete social-features
+	
 ###svndeleterelease###
+Deletes a release branch.
 
+	svndeleterelease release_name
+	
+	svndeleterelease 2.0a
+	
 ###svnswitch###
+Switches to another branch. Full branch path required.
 
+	svnswitch branch/path
+	
+	svnswitch trunk
+	svnswitch branches/social-features
+	svnswitch releases/2.0a
+	
 ###svnswitchbranch###
+Switches to a specific branch without adding the 'branches' full path.
+
+	svnswitchbranch branch_name
+	
+	svnswitchbranch social-features
 
 ###svnswitchrelease###
+Switches to a specific release without adding the 'releases' full path.
 
+	svnswitchrelease release_name
+	
+	svnswitchrelease 2.0a
+	
+###svnswitchtrunk###
+Switched to the trunk.
+
+	svnswitchtrunk
+	
 ###svnmerge###
+Merges a branch back into the trunk. You should be in the trunk when running this.
 
+	svnmerge branch_name
+	
 ###svninfo###
+Displays the svn info.
 
-
+	svninfo
+	   
 ##Thanks##
 Forked originally from https://github.com/grexi/snippets - Gregor Dorfbauer - gd@usersnap.com
