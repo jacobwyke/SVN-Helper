@@ -3,7 +3,7 @@
 # Add the SVN Helper aliases
 #
 # Ensure this path is the correct to where you placed the SVN Helper folder
-. ~/SVN-Helper/.svn-helper.rc
+. ~/SVN-Helper/svn-helper.rc
 
 alias ducks='du -cks * | sort -rn | head -15'
 
