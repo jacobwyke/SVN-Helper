@@ -15,5 +15,34 @@ There are example files in the /example/ folder.
 
 ##Usage##
 
+###svnhelp###
+Display a list of available commands from SVN Helper.
+
+	svnhelp
+
+###svnbranch###
+Create a new branch and switch to it.
+
+	svnbranch _branch_name_ _"Commit Message"_
+	
+###svnupdatebranch###
+
+###svnrelease###
+
+###svndeletebranch###
+
+###svndeleterelease###
+
+###svnswitch###
+
+###svnswitchbranch###
+
+###svnswitchrelease###
+
+###svnmerge###
+
+###svninfo###
+
+
 ##Thanks##
 Forked originally from https://github.com/grexi/snippets - Gregor Dorfbauer - gd@usersnap.com
