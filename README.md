@@ -1,6 +1,6 @@
 #SVN Helper#
 
-##TL/DR##
+##TL;DR##
 Set of bash aliases to make working with SVN easier and faster.
 
 ##Installing##
