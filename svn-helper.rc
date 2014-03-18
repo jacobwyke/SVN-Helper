@@ -149,7 +149,7 @@ alias svninfo=_svninfo
 
 function _svnhelp {
        echo "SVN Helper Functions"
-	   echo "svnbranch - Create a new branch & switches to it."
+	   echo "svnbranch - Create a new branch and switches to it."
 	   echo "svnrelease - Creates a release branch."
 	   echo "svnupdatebranch - Updates a branch from the trunk."	   
 	   echo "svndeletebranch - Deletes a branch."
